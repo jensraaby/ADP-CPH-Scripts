@@ -1,6 +1,5 @@
 #!/bin/sh
-# Jens Raaby
-# Adpeople 
+# Jens Raaby 
 printername="Creative_6501"
 location="6. sal"
 gui_display_name="Creative 6501"

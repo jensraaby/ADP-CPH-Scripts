@@ -1,6 +1,5 @@
 #!/bin/sh
 # Jens Raaby
-# Adpeople 
 printername="Studio_6501"
 location="6. sal"
 gui_display_name="Studio 6501"
