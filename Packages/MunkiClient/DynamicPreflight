@@ -34,6 +34,7 @@ HostsFileURL = os.path.join(RepoURL, HostsFileName)
 HostsFilePath = os.path.join(ConfigDir, HostsFileName)
 ServerConfigURL = os.path.join(RepoURL, ServerConfigName)
 ServerConfigPath = os.path.join(ConfigDir, ServerConfigName)
+ServerConfigName = "ManagedMunkiServer.plist"
 
 
 def UpdateClientIdentifier(ConfigPath, ManifestName):

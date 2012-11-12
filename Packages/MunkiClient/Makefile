@@ -1,14 +1,14 @@
 include /usr/local/share/luggage/luggage.make
 
 
-TITLE=Munki_Client_Dyn
+TITLE=Munki_Client
 REVERSE_DOMAIN=com.adpcph.it
 PAYLOAD=\
 		pack-usr-local-munki-preflight \
      	pack-usr-local-munki-postflight \
         pack-Library-Preferences-ManagedInstalls.plist
 
-PACKAGE_VERSION=1.0.3
+PACKAGE_VERSION=1.1.0
 
 
 l_usr_local_munki: l_usr_local

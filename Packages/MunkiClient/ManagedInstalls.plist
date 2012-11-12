@@ -7,7 +7,7 @@
 	<key>LoggingLevel</key>
 	<integer>1</integer>
 	<key>DaysBetweenNotifications</key>
-	<integer>7</integer>
+	<integer>1</integer>
 	<key>ClientIdentifier</key>
 	<string>adpeople_base</string>
 </dict>
