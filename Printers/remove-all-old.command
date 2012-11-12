@@ -1,6 +1,5 @@
 #!/bin/sh
 # Jens Raaby
-# Adpeople 
 /usr/sbin/lpadmin -x "_5__6501___Reception_"
 /usr/sbin/lpadmin -x "C6501_6th_Floor"
 /usr/sbin/lpadmin -x "_5_INEO_552"
