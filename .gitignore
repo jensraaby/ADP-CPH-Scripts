@@ -16,3 +16,8 @@ tmp
 .yardoc
 _yardoc
 doc/
+
+# Don't include packages or dmgs
+*.dmg
+*.pkg
+.DS_Store
