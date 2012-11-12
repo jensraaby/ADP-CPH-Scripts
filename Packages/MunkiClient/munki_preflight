@@ -2,7 +2,7 @@
 
 # Dynamic client script
 echo "Dynamic preflight tasks..."
-./DynamicPreflight $1
+/usr/local/munki/DynamicPreflight $1
 echo "Done with dynamic tasks..."
 
 

@@ -29,13 +29,20 @@ RepoURL = "http://152.146.38.56/munki_repo"
 ConfigName = "ManagedInstalls.plist"
 HostsFileName = "ManagedMunkiHosts.plist"
 ConfigDir = "/Library/Preferences"
+ServerConfigName = "ManagedMunkiServer.plist"
 ConfigPath = os.path.join(ConfigDir, ConfigName)
 HostsFileURL = os.path.join(RepoURL, HostsFileName)
 HostsFilePath = os.path.join(ConfigDir, HostsFileName)
 ServerConfigURL = os.path.join(RepoURL, ServerConfigName)
 ServerConfigPath = os.path.join(ConfigDir, ServerConfigName)
-ServerConfigName = "ManagedMunkiServer.plist"
 
+
+def MergePlists(FromPlist, ToPlist):
+        FromPlistData = FoundationPlist.readPlist(FromPlist)
+        ToPlistData = FoundationPlist.readPlist(ToPlist)
+        for item in FromPlistData:
+                ToPlistData[item] = FromPlistData[item]
+        FoundationPlist.writePlist(ToPlistData, ToPlist)
 
 def UpdateClientIdentifier(ConfigPath, ManifestName):
         config = FoundationPlist.readPlist(ConfigPath)
@@ -44,8 +51,7 @@ def UpdateClientIdentifier(ConfigPath, ManifestName):
 
 if (sys.argv[1] != "logoutinstall") and (sys.argv[1] != "installwithnologout"):
         print "Checking for new %s" % (HostsFileName)
-        if updatecheck.getResourceIfChangedAtomically(
-            HostsFileURL, HostsFilePath)["http_result_code"] == "200":
+        if updatecheck.getResourceIfChangedAtomically(HostsFileURL, HostsFilePath):
                 hostname = socket.gethostname()
                 print "     Matching hostname to manifest."
                 for host in FoundationPlist.readPlist(HostsFilePath)["hosts"]:
@@ -65,9 +71,3 @@ if (sys.argv[1] != "logoutinstall") and (sys.argv[1] != "installwithnologout"):
 								
 
 
-def MergePlists(FromPlist, ToPlist):
-        FromPlistData = FoundationPlist.readPlist(FromPlist)
-        ToPlistData = FoundationPlist.readPlist(ToPlist)
-        for item in FromPlistData:
-                ToPlistData[item] = FromPlistData[item]
-        FoundationPlist.writePlist(ToPlistData, ToPlist)
