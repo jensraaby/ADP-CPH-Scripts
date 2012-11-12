@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SoftwareRepoURL</key>
+	<string>http://152.146.38.56/munki_repo</string>
+	<key>LoggingLevel</key>
+	<integer>1</integer>
+	<key>DaysBetweenNotifications</key>
+	<integer>7</integer>
+	<key>ClientIdentifier</key>
+	<string>adpeople_base</string>
+</dict>
+</plist>
