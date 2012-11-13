@@ -1,0 +1,48 @@
+#!/usr/bin/python
+
+import sys
+import os
+import socket
+import re
+from munkilib import updatecheck
+from munkilib import FoundationPlist
+
+#
+#WPKG-like Dynamic Manifest based on Hostname Preflight Script by John Rozewicki
+#2010-12-08
+#
+#Pulls the hosts plist config from Munki repo if newer. This hosts plist is 
+#a regex-able mapping of hostnames to manifests in order to mimic the 
+#functionality of the WPKG hosts.xml file.
+#
+#Hosts from the hosts plist are parsed in order, and the script bails after the first match.
+#This allows for specificity of manifests to be handled server-side rather than on the client, 
+#and also allows for admins to make manifest delineation only as granular as is necessary.
+#
+
+RepoURL = "http://152.146.38.56/munki_repo"
+ConfigName = "ManagedInstalls.plist"
+HostsFileName = "ManagedMunkiHosts.plist"
+ConfigDir = "/Library/Preferences"
+ConfigPath = os.path.join(ConfigDir, ConfigName)
+HostsFileURL = os.path.join(RepoURL, HostsFileName)
+HostsFilePath = os.path.join(ConfigDir, HostsFileName)
+
+def UpdateClientIdentifier(ConfigPath, ManifestName):
+        config = FoundationPlist.readPlist(ConfigPath)
+        config["ClientIdentifier"] = ManifestName
+        FoundationPlist.writePlist(config, ConfigPath)
+
+if (sys.argv[1] != "logoutinstall") and (sys.argv[1] != "installwithnologout"):
+        print "Checking for new %s" % (HostsFileName)
+        if updatecheck.getResourceIfChangedAtomically(
+            HostsFileURL, HostsFilePath):
+                hostname = socket.gethostname()
+                print "     Matching hostname to manifest."
+                for host in FoundationPlist.readPlist(HostsFilePath)["hosts"]:
+                        name = host["name"].lower()
+                        manifest = host["manifest-id"].lower()
+                        if re.match(name, hostname):
+                                print "     Setting ClientIdentifier to manifest name: %s." % (manifest)
+                                UpdateClientIdentifier(ConfigPath, manifest)
+                                break

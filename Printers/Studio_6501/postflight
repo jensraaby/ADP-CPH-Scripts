@@ -1,5 +1,9 @@
 #!/bin/sh
 # Jens Raaby
+
+
+# TODO: Check for PPD, patch from Fiery and so on...
+
 printername="Studio_6501"
 location="6. sal"
 gui_display_name="Studio 6501"

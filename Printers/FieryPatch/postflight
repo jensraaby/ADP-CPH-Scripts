@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# postflight
+#
+# Created by Jens Raaby on 11/12/12.
+
+sudo /Applications/FieryUpdate.app/Contents/MacOS/Fiery\ Print\ Driver\ update\ for\ OS\ X\ v10.6

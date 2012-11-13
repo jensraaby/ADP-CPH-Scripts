@@ -1,0 +1,33 @@
+#!/usr/bin/python
+import sys
+import os
+from munkilib import updatecheck
+from munkilib import FoundationPlist
+
+#Dynamic Config Munki Preflight Script by John Rozewicki
+#2010-12-08
+#
+#Script merges config from Munki repo into local config if newer.
+
+RepoURL = "http://152.146.38.56/munki_repo"
+ConfigName = "ManagedInstalls.plist"
+ServerConfigName = "ManagedMunkiServer.plist"
+ConfigDir = "/Library/Preferences"
+ConfigPath = os.path.join(ConfigDir, ConfigName)
+ServerConfigURL = os.path.join(RepoURL, ServerConfigName)
+ServerConfigPath = os.path.join(ConfigDir, ServerConfigName)
+
+def MergePlists(FromPlist, ToPlist):
+        FromPlistData = FoundationPlist.readPlist(FromPlist)
+        ToPlistData = FoundationPlist.readPlist(ToPlist)
+        for item in FromPlistData:
+                ToPlistData[item] = FromPlistData[item]
+        FoundationPlist.writePlist(ToPlistData, ToPlist)
+
+if (sys.argv[1] != "logoutinstall") and (sys.argv[1] != "installwithnologout"):
+        os.system("touch /Users/Shared/.com.googlecode.munki.checkandinstallatstartup")
+        print "Checking for new %s" % (ServerConfigName)
+        if updatecheck.getResourceIfChangedAtomically(
+            ServerConfigURL, ServerConfigPath):
+                print "     Merging new server settings into configuration."
+                MergePlists(ServerConfigPath, ConfigPath)
