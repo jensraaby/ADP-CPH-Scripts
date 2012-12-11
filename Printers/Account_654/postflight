@@ -4,10 +4,10 @@
 
 # TODO: Check for PPD, patch from Fiery and so on...
 
-printername="Management_654"
+printername="Account_654"
 location="7. sal"
-gui_display_name="Management 654"
-address="lpd://152.146.38.71"
+gui_display_name="Account 654"
+address="lpd://152.146.38.23"
 driver_ppd="/Library/Printers/PPDs/Contents/Resources/GENERIC60C-6.gz"
 
 if [ $? -eq 0 ]; then
