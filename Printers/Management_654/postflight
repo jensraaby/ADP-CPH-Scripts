@@ -1,0 +1,34 @@
+#!/bin/sh
+# Jens Raaby
+
+
+# TODO: Check for PPD, patch from Fiery and so on...
+
+printername="Account_654"
+location="7. sal"
+gui_display_name="Account 654"
+address="lpd://152.146.38.23"
+driver_ppd="/Library/Printers/PPDs/Contents/Resources/GENERIC60C-6.gz"
+
+if [ $? -eq 0 ]; then
+        /usr/sbin/lpadmin -x $printername
+fi
+
+# Now we can install the printer.
+/usr/sbin/lpadmin \
+        -p "$printername" \
+        -L "$location" \
+        -D "$gui_display_name" \
+        -v "$address" \
+        -P "$driver_ppd" \
+        -o "$option_1" \
+        -o "$option_2" \
+        -o "$option_3" \
+        -o printer-is-shared=false \
+        -E
+
+# Enable and start the printers on the system (after adding the printer initially it is paused).
+/usr/sbin/cupsenable $(lpstat -p | grep -w "printer" | awk '{print$2}')
+
+lpadmin -d $printername
+exit 0
