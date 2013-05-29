@@ -1,0 +1,5 @@
+TODO:
+- Script to install the keychain
+- Get the current user, enable FDE with that user
+- Add the recovery account
+- Update Sox Client to latest version (and report FDE status)
