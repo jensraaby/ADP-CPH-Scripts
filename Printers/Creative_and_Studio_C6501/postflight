@@ -1,0 +1,29 @@
+#!/bin/sh
+# Jens Raaby
+creative_name=Creative_6501
+creative_ip=152.146.38.25
+studio_name=Studio_6501
+studio_ip=152.146.38.24
+
+# Generic settings
+ppd="Fiery PRO80 65-55C-KM PS3.0a eu"
+fierydriverinstaller=/Applications/Utilities/FieryDriverInstaller.app/Contents/MacOS/fierydriverinstaller
+
+# Install printers (delete existing)
+if [ $? -eq 0 ]; then
+        /usr/sbin/lpadmin -x $creative_name
+		/usr/sbin/lpadmin -x $studio_name
+		/usr/sbin/lpadmin -x "Creative_C6501"
+		/usr/sbin/lpadmin -x "Studio_C6501"
+		/usr/sbin/lpadmin -x "Studio_6501___cph41mini"
+		/usr/sbin/lpadmin -x "Creative_6501___cph41mini"
+fi
+
+sudo $fierydriverinstaller -i $creative_ip -l "en" -printer "$creative_name" -ppd "$ppd"
+sudo $fierydriverinstaller -i $studio_ip   -l "en" -printer "$studio_name" -ppd "$ppd"
+
+# Disable sharing, set display name
+sudo lpadmin -p "$creative_name" -o printer-is-shared=false -D "Creative 6501" -L "6th Floor"
+sudo lpadmin -p "$studio_name" -o printer-is-shared=false -D "Studio 6501" -L "6th Floor"
+
+exit 0
